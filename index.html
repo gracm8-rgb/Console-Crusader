@@ -66,8 +66,7 @@ https://templatemo.com/tm-589-lugx-gaming
                       <!-- product-details removed -->
                       <!-- <li><a href="product-details.html">Product Details</a></li> -->
                       <li><a href="contact.html">Contact Us</a></li>
--                      <li><a href="#">Sign In</a></li>
-+                      <li id="nav-auth"><a href="login.html">Sign In</a></li>
+                      <li><a href="#">Sign In</a></li>
                      <li><a href="#voting">Voting</a></li>
                      <li><a href="#reviews">Reviews</a></li>
                      <li><a href="#upload-art">Upload Art</a></li>
@@ -83,19 +82,15 @@ https://templatemo.com/tm-589-lugx-gaming
   </header>
   <!-- ***** Header Area End ***** -->
 
-  <div class="main-banner">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 align-self-center">
-          <div class="caption header-text">
-            <h6>Welcome to Console Crusader</h6>
-            <h2>BEST GAMING SITE EVER!</h2>
+  <div class="main-banner" style="background-image: url('assets/images/florian-olivo-Mf23RF8xArY-unsplash.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; width:100%;">
+    <div style="background: rgba(0,0,0,0.45); padding: 80px 0;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 align-self-center">
+            <div class="caption header-text">
+              <h6>Welcome to Console Crusader</h6>
+              <h2>BEST GAMING SITE EVER!</h2>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-4 offset-lg-2">
-          <div class="right-image">
-            <img src="assets/images/0d8cb697-2741-44c2-b31d-832bfa4b9721.png" alt="">
           </div>
         </div>
       </div>
@@ -326,40 +321,23 @@ https://templatemo.com/tm-589-lugx-gaming
             <h2>Upload Game Art</h2>
           </div>
         </div>
--        <div class="col-lg-6">
--          <form id="art-form" class="card p-3">
--            <div class="mb-2">
--              <input id="art-title" class="form-control" placeholder="Art title" />
--            </div>
--            <div class="mb-2">
--              <input id="art-file" type="file" accept="image/*" class="form-control" />
--            </div>
--            <div class="mb-2">
--              <img id="art-preview" style="max-width:100%; display:none;" alt="preview"/>
--            </div>
--            <button type="submit" class="btn btn-success">Upload Art</button>
--          </form>
--        </div>
-+        <div class="col-lg-6">
-+          <!-- show login prompt when not authenticated; show form when authenticated -->
-+          <div id="art-logged-out" class="card p-3">
-+            <p>Please <a href="login.html">log in</a> to upload art.</p>
-+          </div>
-+          <div id="art-logged-in" style="display:none;">
-+            <form id="art-form" class="card p-3">
-+              <div class="mb-2">
-+                <input id="art-title" class="form-control" placeholder="Art title" />
-+              </div>
-+              <div class="mb-2">
-+                <input id="art-file" type="file" accept="image/*" class="form-control" />
-+              </div>
-+              <div class="mb-2">
-+                <img id="art-preview" style="max-width:100%; display:none;" alt="preview"/>
-+              </div>
-+              <button type="submit" class="btn btn-success">Upload Art</button>
-+            </form>
-+          </div>
-+        </div>
+        <div class="col-lg-6">
+          <form id="art-form" class="card p-3">
+            <div class="mb-2">
+              <input id="art-title" class="form-control" placeholder="Art title" />
+            </div>
+            <div class="mb-2">
+              <input id="art-file" type="file" accept="image/*" class="form-control" />
+            </div>
+            <div class="mb-2">
+              <img id="art-preview" style="max-width:100%; display:none;" alt="preview"/>
+            </div>
+            <button type="submit" class="btn btn-success">Upload Art</button>
+          </form>
+        </div>
+        <div class="col-lg-6">
+          <div id="art-gallery" class="row"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -378,34 +356,6 @@ https://templatemo.com/tm-589-lugx-gaming
 
   <!-- Inline app script for voting, reviews, art (uses localStorage) -->
   <script>
-+    // Authentication helpers (simple client-side demo only)
-+    function getCurrentUser(){ try{ return JSON.parse(localStorage.getItem('cc_user')) || null }catch(e){ return null } }
-+    function isLoggedIn(){ return !!getCurrentUser(); }
-+    function logout(){ localStorage.removeItem('cc_user'); location.reload(); }
-+    function updateAuthUI(){
-+      const authNav = document.getElementById('nav-auth');
-+      if (!authNav) return;
-+      const user = getCurrentUser();
-+      if (user) {
-+        authNav.innerHTML = `<a href="#">${user.username} <small style="opacity:.8">(logout)</small></a>`;
-+        authNav.querySelector('a').addEventListener('click', function(e){ e.preventDefault(); logout(); });
-+      } else {
-+        authNav.innerHTML = `<a href="login.html">Sign In</a>`;
-+      }
-+      // upload area
-+      const loggedInArea = document.getElementById('art-logged-in');
-+      const loggedOutArea = document.getElementById('art-logged-out');
-+      if (isLoggedIn()){
-+        if (loggedInArea) loggedInArea.style.display = '';
-+        if (loggedOutArea) loggedOutArea.style.display = 'none';
-+      } else {
-+        if (loggedInArea) loggedInArea.style.display = 'none';
-+        if (loggedOutArea) loggedOutArea.style.display = '';
-+      }
-+    }
-+    // call early so UI updates before user interacts
-+    document.addEventListener('DOMContentLoaded', updateAuthUI);
-+
     (function () {
       // initial games (id, name, image)
       const GAMES = [
@@ -529,8 +479,6 @@ https://templatemo.com/tm-589-lugx-gaming
 
       document.getElementById('art-form').addEventListener('submit', function (ev) {
         ev.preventDefault();
-+        // require login for upload
-+        if (!isLoggedIn()) { window.location.href = 'login.html'; return; }
         const fileInput = document.getElementById('art-file');
         const f = fileInput.files && fileInput.files[0];
         if (!f) return alert('Choose an image file first.');
@@ -575,8 +523,6 @@ https://templatemo.com/tm-589-lugx-gaming
       init();
     })();
   </script>
-+  <!-- ensure auth UI reflects login changes (in case login page sets cc_user) -->
-+  <script>window.addEventListener('storage', function(){ try{ updateAuthUI(); }catch(e){} });</script>
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
