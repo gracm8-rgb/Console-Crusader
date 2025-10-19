@@ -61,15 +61,13 @@ https://templatemo.com/tm-589-lugx-gaming
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                      <li><a href="index.html" class="active">Home</a></li>
+                      <li><a href="index.html">Home</a></li>
                       <li><a href="shop.html">Our Shop</a></li>
-                      <!-- product-details removed -->
-                      <!-- <li><a href="product-details.html">Product Details</a></li> -->
                       <li><a href="contact.html">Contact Us</a></li>
-                      <li><a href="#">Sign In</a></li>
                      <li><a href="#voting">Voting</a></li>
-                     <li><a href="#reviews">Reviews</a></li>
-                     <li><a href="#upload-art">Upload Art</a></li>
+                     <li><a href="reviews.html">Reviews</a></li>
+                     <li><a href="gallery.html#upload-art">Upload Art</a></li>
+                     <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart <span id="cart-count-nav" class="badge bg-danger">0</span></a></li>
                   </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -190,6 +188,76 @@ https://templatemo.com/tm-589-lugx-gaming
     </div>
   </div>
 
+  <div class="section trending">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="section-heading">
+            <h6>Our Shop</h6>
+            <h2>Featured Merch</h2>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="main-button">
+            <a href="shop.html">View All</a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="item">
+            <div class="thumb">
+              <img src="assets/images/hoodie.png" alt="Console Crusader Hoodie">
+              <span class="price">£40.00</span>
+            </div>
+            <div class="down-content">
+              <span class="category">Hoodie</span>
+              <h4>Crusader Logo Hoodie</h4>
+              <a href="#" class="add-to-cart-btn" data-id="hoodie-1" data-name="Crusader Logo Hoodie" data-price="40"><i class="fa fa-shopping-bag"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="item">
+            <div class="thumb">
+              <img src="assets/images/t-shirt.png" alt="Console Crusader T-Shirt">
+              <span class="price">£25.00</span>
+            </div>
+            <div class="down-content">
+              <span class="category">T-Shirt</span>
+              <h4>Crusader Logo Tee</h4>
+              <a href="#" class="add-to-cart-btn" data-id="tee-1" data-name="Crusader Logo Tee" data-price="25"><i class="fa fa-shopping-bag"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="item">
+            <div class="thumb">
+              <img src="assets/images/mug.png" alt="Console Crusader Mug">
+              <span class="price">£15.00</span>
+            </div>
+            <div class="down-content">
+              <span class="category">Mug</span>
+              <h4>Crusader Logo Mug</h4>
+              <a href="#" class="add-to-cart-btn" data-id="mug-1" data-name="Crusader Logo Mug" data-price="15"><i class="fa fa-shopping-bag"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="item">
+            <div class="thumb">
+              <img src="assets/images/black hoodie.png" alt="Black Crusader Hoodie">
+              <span class="price">£45.00</span>
+            </div>
+            <div class="down-content">
+              <span class="category">Hoodie</span>
+              <h4>Black Crusader Hoodie</h4>
+              <a href="#" class="add-to-cart-btn" data-id="hoodie-2" data-name="Black Crusader Hoodie" data-price="45"><i class="fa fa-shopping-bag"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="section categories">
     <div class="container">
       <div class="row">
@@ -262,88 +330,19 @@ https://templatemo.com/tm-589-lugx-gaming
             </div>
           </div>
         </div>
-  <!-- ===== New Sections: Voting, Reviews, Upload Art ===== -->
+  <!-- ===== New Sections: Voting, Upload Art (reviews removed from here) ===== -->
   <div id="voting" class="section voting">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="section-heading">
-            <h6>VOTE</h6>
-            <h2>Vote For Your Favorite Games</h2>
-          </div>
-        </div>
-      </div>
-      <div id="voting-list" class="row"></div>
-    </div>
-  </div>
-
-  <div id="reviews" class="section reviews">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="section-heading">
-            <h6>REVIEWS</h6>
-            <h2>Game Reviews & Ratings</h2>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <form id="review-form" class="card p-3">
-            <div class="mb-2">
-              <label for="review-game">Game</label>
-              <select id="review-game" class="form-control"></select>
-            </div>
-            <div class="mb-2">
-              <input id="review-name" class="form-control" placeholder="Your name" />
-            </div>
-            <div class="mb-2">
-              <select id="review-rating" class="form-control">
-                <option value="5">5 - Excellent</option>
-                <option value="4">4 - Very Good</option>
-                <option value="3">3 - Good</option>
-                <option value="2">2 - Fair</option>
-                <option value="1">1 - Poor</option>
-              </select>
-            </div>
-            <div class="mb-2">
-              <textarea id="review-comment" class="form-control" rows="4" placeholder="Write your review..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit Review</button>
-          </form>
-        </div>
-        <div class="col-lg-6">
-          <div id="reviews-list" class="list-group"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="upload-art" class="section upload-art">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="section-heading">
-            <h6>UPLOAD</h6>
-            <h2>Upload Game Art</h2>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <form id="art-form" class="card p-3">
-            <div class="mb-2">
-              <input id="art-title" class="form-control" placeholder="Art title" />
-            </div>
-            <div class="mb-2">
-              <input id="art-file" type="file" accept="image/*" class="form-control" />
-            </div>
-            <div class="mb-2">
-              <img id="art-preview" style="max-width:100%; display:none;" alt="preview"/>
-            </div>
-            <button type="submit" class="btn btn-success">Upload Art</button>
-          </form>
-        </div>
-        <div class="col-lg-6">
-          <div id="art-gallery" class="row"></div>
-        </div>
-      </div>
-    </div>
+     <div class="container">
+       <div class="row">
+         <div class="col-12">
+           <div class="section-heading">
+             <h6>VOTE</h6>
+             <h2>Vote For Your Favorite Games</h2>
+           </div>
+         </div>
+       </div>
+       <div id="voting-list" class="row"></div>
+     </div>
   </div>
   <!-- ===== End new sections ===== -->
 
@@ -361,8 +360,38 @@ https://templatemo.com/tm-589-lugx-gaming
   <!-- Inline app script for voting, reviews, art (uses localStorage) -->
   <script>
   (function () {
-    // Add this flag to control uploads
-    const UPLOAD_ENABLED = false; // set to true when you want to allow uploads again
+    // --- Cart Count ---
+    (function updateCartCount() { const count = JSON.parse(localStorage.getItem('consoleCrusaderCart') || '[]').reduce((t, i) => t + i.quantity, 0); const el = document.getElementById('cart-count-nav'); if (el) el.textContent = count; })();
+    // --- Admin ---
+    const ADMIN_PASSWORD = 'admin123'; // IMPORTANT: This is not secure for a real site!
+    function isAdmin() { return sessionStorage.getItem('cc_admin') === '1'; }
+    function setAdmin(val) { sessionStorage.setItem('cc_admin', val ? '1' : '0'); }
+
+    // Add floating admin button to all pages
+    (function addAdminButton() {
+        const btn = document.createElement('a');
+        btn.id = 'admin-btn';
+        btn.className = 'btn btn-sm btn-dark';
+        btn.style = 'position:fixed; right:16px; bottom:16px; z-index:9999;';
+        btn.textContent = 'Admin';
+        btn.href = '#';
+        document.body.appendChild(btn);
+
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (isAdmin()) {
+                window.location.href = 'admin.html';
+            } else {
+                const pw = prompt('Enter admin password:');
+                if (pw === ADMIN_PASSWORD) {
+                    setAdmin(true);
+                    window.location.href = 'admin.html';
+                } else if (pw) { // only alert if they entered something
+                    alert('Invalid password.');
+                }
+            }
+        });
+    })();
 
     // initial games (id, name, image)
     const GAMES = [
@@ -422,256 +451,45 @@ https://templatemo.com/tm-589-lugx-gaming
       vote(id, action === 'up' ? 1 : -1);
     });
 
-    // --- Reviews ---
+    // --- Reviews (form removed from this page; keep storage funcs only) ---
     const RKEY = 'cc_reviews_v1';
     function loadReviews() {
       return JSON.parse(localStorage.getItem(RKEY) || '[]');
     }
     function saveReviews(list) { localStorage.setItem(RKEY, JSON.stringify(list)); }
-    function renderReviews() {
-      const list = loadReviews();
-      const el = document.getElementById('reviews-list');
-      el.innerHTML = '';
-      if (!list.length) el.innerHTML = '<div class="text-muted">No reviews yet.</div>';
-      list.slice().reverse().forEach(r => {
-        const item = document.createElement('div');
-        item.className = 'list-group-item';
-        item.innerHTML = `<strong>${escapeHtml(r.name || 'Anonymous')}</strong> <small class="text-muted">(${escapeHtml(r.game)}) - ${r.rating}/5</small><p>${escapeHtml(r.comment)}</p>`;
-        el.appendChild(item);
-      });
-    }
     function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-    document.getElementById('review-form').addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      const game = document.getElementById('review-game').value;
-      const name = document.getElementById('review-name').value.trim() || 'Anonymous';
-      const rating = parseInt(document.getElementById('review-rating').value, 10);
-      const comment = document.getElementById('review-comment').value.trim();
-      const list = loadReviews();
-      list.push({ game, name, rating, comment, at: Date.now() });
-      saveReviews(list);
-      this.reset();
-      renderReviews();
-    });
-
-    // --- Art upload (stores data URLs in localStorage) ---
-    const AKEY = 'cc_art_v1';
-    function loadArt(){ return JSON.parse(localStorage.getItem(AKEY) || '[]'); }
-    function saveArt(a){ localStorage.setItem(AKEY, JSON.stringify(a)); }
-
-    // render public gallery: only approved (or legacy items without status)
-    function renderArt() {
-      const gallery = document.getElementById('art-gallery');
-      gallery.innerHTML = '';
-      // show approved items only; treat legacy items (no status) as approved
-      const items = loadArt().slice().reverse().filter(it => it.status === 'approved' || typeof it.status === 'undefined');
-      if (!items.length) gallery.innerHTML = '<div class="text-muted">No art uploaded yet.</div>';
-      items.forEach((it, idx) => {
-        const col = document.createElement('div');
-        col.className = 'col-6 mb-3';
-        col.innerHTML = `<div class="card"><img src="${it.data}" style="width:100%;height:auto"/><div class="card-body"><strong>${escapeHtml(it.title || '')}</strong><button data-idx="${idx}" class="btn btn-sm btn-danger float-end art-del">Delete</button></div></div>`;
-        gallery.appendChild(col);
-      });
-    }
-
-    // Admin UI & actions
-    const ADMIN_PASSWORD = 'admin123'; // change as needed; client-side only
-    function isAdmin() { return sessionStorage.getItem('cc_admin') === '1'; }
-    function setAdmin(val) { sessionStorage.setItem('cc_admin', val ? '1' : '0'); }
-
-    // render pending items for admin
-    function renderPendingList() {
-      const container = document.getElementById('pending-list');
-      if (!container) return;
-      container.innerHTML = '';
-      const all = loadArt();
-      const pending = all.map((it, idx) => ({ it, idx })).filter(x => x.it.status === 'pending');
-      if (!pending.length) container.innerHTML = '<div class="text-muted">No pending art.</div>';
-      pending.forEach(({ it, idx }) => {
-        const col = document.createElement('div');
-        col.className = 'col-md-4 mb-3';
-        col.innerHTML = `
-          <div class="card">
-            <img src="${it.data}" class="card-img-top" style="height:180px;object-fit:cover"/>
-            <div class="card-body">
-              <strong>${escapeHtml(it.title || 'Untitled')}</strong>
-              <div class="mt-2">
-                <button class="btn btn-sm btn-success me-1 pending-approve" data-idx="${idx}">Approve</button>
-                <button class="btn btn-sm btn-warning me-1 pending-reject" data-idx="${idx}">Reject</button>
-                <button class="btn btn-sm btn-danger pending-delete" data-idx="${idx}">Delete</button>
-              </div>
-            </div>
-          </div>`;
-        container.appendChild(col);
-      });
-    }
-
-    function toggleAdminPanel(show) {
-      const panel = document.getElementById('admin-panel');
-      if (!panel) return;
-      panel.style.display = show ? 'block' : 'none';
-      if (show) renderPendingList();
-    }
-
-    // Preview handling (guarded)
-    const _artFileEl = document.getElementById('art-file');
-    if (_artFileEl) {
-      _artFileEl.addEventListener('change', function () {
-        if (!UPLOAD_ENABLED) return; // uploads blocked
-        const f = this.files && this.files[0];
-        if (!f) return;
-        const reader = new FileReader();
-        reader.onload = function () {
-          const img = document.getElementById('art-preview');
-          img.src = reader.result;
-          img.style.display = 'block';
-        };
-        reader.readAsDataURL(f);
-      });
-    }
-
-    // On upload: mark as pending
-    const _artFormEl = document.getElementById('art-form');
-    if (_artFormEl) {
-      _artFormEl.addEventListener('submit', function (ev) {
+    // Safe attach of review form listener: only if form exists on this page
+    const reviewFormEl = document.getElementById('review-form');
+    if (reviewFormEl) {
+      reviewFormEl.addEventListener('submit', function (ev) {
         ev.preventDefault();
-        if (!UPLOAD_ENABLED) {
-          alert('Uploads are temporarily disabled. Please try again later.');
-          return;
-        }
-        const fileInput = document.getElementById('art-file');
-        const f = fileInput.files && fileInput.files[0];
-        if (!f) return alert('Choose an image file first.');
-        const reader = new FileReader();
-        reader.onload = function () {
-          const arr = loadArt();
-          arr.push({ title: document.getElementById('art-title').value.trim() || 'Untitled', data: reader.result, at: Date.now(), status: 'pending' });
-          saveArt(arr);
-          document.getElementById('art-form').reset();
-          document.getElementById('art-preview').style.display = 'none';
-          renderArt();
-          if (isAdmin()) renderPendingList();
-          alert('Upload received and is pending admin approval.');
-        };
-        reader.readAsDataURL(f);
+        const game = document.getElementById('review-game').value;
+        const name = document.getElementById('review-name').value.trim() || 'Anonymous';
+        const rating = parseInt(document.getElementById('review-rating').value, 10);
+        const comment = document.getElementById('review-comment').value.trim();
+        const list = loadReviews();
+        list.push({ game, name, rating, comment, at: Date.now() });
+        saveReviews(list);
+        this.reset();
+        // Redirect to the dedicated reviews page so reviews only appear there
+        window.location.href = 'reviews.html';
       });
     }
-
-    // Delete public art (keeps same indexing logic as before)
-    document.addEventListener('click', function (e) {
-      const del = e.target.closest('.art-del');
-      if (del) {
-        const idx = parseInt(del.getAttribute('data-idx'), 10);
-        const arr = loadArt();
-        // idx is from reversed list view, delete actual last-index equivalent:
-        const realIndex = arr.length - 1 - idx;
-        arr.splice(realIndex, 1);
-        saveArt(arr);
-        renderArt();
-        if (isAdmin()) renderPendingList();
-        return;
-      }
-
-      // admin actions (approve, reject, delete)
-      const approve = e.target.closest('.pending-approve');
-      if (approve) {
-        const idx = parseInt(approve.getAttribute('data-idx'), 10);
-        const arr = loadArt();
-        if (arr[idx]) {
-          arr[idx].status = 'approved';
-          saveArt(arr);
-          renderPendingList();
-          renderArt();
-        }
-        return;
-      }
-      const reject = e.target.closest('.pending-reject');
-      if (reject) {
-        const idx = parseInt(reject.getAttribute('data-idx'), 10);
-        const arr = loadArt();
-        if (arr[idx]) {
-          arr[idx].status = 'rejected';
-          saveArt(arr);
-          renderPendingList();
-          renderArt();
-        }
-        return;
-      }
-      const pd = e.target.closest('.pending-delete');
-      if (pd) {
-        const idx = parseInt(pd.getAttribute('data-idx'), 10);
-        const arr = loadArt();
-        if (typeof idx === 'number' && arr[idx]) {
-          arr.splice(idx, 1);
-          saveArt(arr);
-          renderPendingList();
-          renderArt();
-        }
-      }
-    });
-
-    // Admin button (floating) and panel initialization
-    // Add controls to DOM
-    (function addAdminControls() {
-      // floating admin button
-      const btn = document.createElement('button');
-      btn.id = 'admin-btn';
-      btn.className = 'btn btn-sm btn-dark';
-      btn.style = 'position:fixed; right:16px; bottom:16px; z-index:9999;';
-      btn.textContent = 'Admin';
-      document.body.appendChild(btn);
-
-      // admin panel container
-      const panel = document.createElement('div');
-      panel.id = 'admin-panel';
-      panel.className = 'section admin-panel';
-      panel.style = 'display:none; background:#fff; padding:20px; position:relative;';
-      panel.innerHTML = `
-        <div class="container">
-          <div class="row mb-2">
-            <div class="col-10"><h4>Admin: Pending Art</h4></div>
-            <div class="col-2 text-end"><button id="admin-close" class="btn btn-secondary btn-sm">Close</button></div>
-          </div>
-          <div id="pending-list" class="row"></div>
-          <div class="mt-3"><button id="admin-logout" class="btn btn-outline-secondary btn-sm">Logout Admin</button></div>
-        </div>`;
-      // insert before footer if possible
-      const footer = document.querySelector('footer');
-      if (footer && footer.parentNode) footer.parentNode.insertBefore(panel, footer);
-      else document.body.appendChild(panel);
-
-      btn.addEventListener('click', function () {
-        if (isAdmin()) {
-          toggleAdminPanel(true);
-        } else {
-          const pw = prompt('Enter admin password:');
-          if (pw === ADMIN_PASSWORD) {
-            setAdmin(true);
-            toggleAdminPanel(true);
-          } else {
-            alert('Invalid password.');
-          }
-        }
-      });
-
-      document.getElementById('admin-close').addEventListener('click', function () { toggleAdminPanel(false); });
-      document.getElementById('admin-logout').addEventListener('click', function () { setAdmin(false); toggleAdminPanel(false); alert('Logged out.'); });
-    })();
 
     // populate review game select and initialize
     function init() {
       const sel = document.getElementById('review-game');
-      sel.innerHTML = '';
-      GAMES.forEach(g => {
-        const o = document.createElement('option');
-        o.value = g.name;
-        o.textContent = g.name;
-        sel.appendChild(o);
-      });
+      if (sel) {
+        sel.innerHTML = '';
+        GAMES.forEach(g => {
+          const o = document.createElement('option');
+          o.value = g.name;
+          o.textContent = g.name;
+          sel.appendChild(o);
+        });
+      }
       renderVoting();
-      renderReviews();
-      renderArt();
     }
     init();
   })();
@@ -682,6 +500,7 @@ https://templatemo.com/tm-589-lugx-gaming
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="assets/js/isotope.min.js"></script>
+  <script src="assets/js/cart.js"></script>
   <script src="assets/js/owl-carousel.js"></script>
   <script src="assets/js/counter.js"></script>
   <script src="assets/js/custom.js"></script>

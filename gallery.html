@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Gallery - Console Crusader</title>
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-lugx-gaming.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+  </head>
+  <body>
+    <!-- Header (matches index) -->
+    <header class="header-area header-sticky">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <nav class="main-nav">
+              <a href="index.html" class="logo">
+                <img src="assets/images/0d8cb697-2741-44c2-b31d-832bfa4b9721.png" alt="" style="width: 158px;">
+              </a>
+              <div class="site-title d-none d-md-block" style="margin-left:12px;">
+                <h1 style="font-family: 'Poppins', sans-serif; font-weight:800; font-size:28px; color:#ffffff; text-transform:uppercase; letter-spacing:2px; margin:0;">
+                  CONSOLE CRUSADER
+                </h1>
+              </div>
+
+              <ul class="nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Our Shop</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="index.html#voting">Voting</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="#upload-art">Upload Art</a></li>
+                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart <span id="cart-count-nav" class="badge bg-danger">0</span></a></li>
+              </ul>
+
+              <a class='menu-trigger'><span>Menu</span></a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Banner (same style) -->
+    <div class="main-banner">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 align-self-center">
+            <div class="caption header-text">
+              <h6>Community Gallery</h6>
+              <h2>Uploaded Game Art</h2>
+              <p class="mt-3">Browse art submitted by users. To upload, go to the homepage.</p>
+              <div class="main-button mt-3">
+                <a href="index.html#upload-art">Upload Art</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 offset-lg-2">
+            <div class="right-image">
+              <img src="assets/images/0d8cb697-2741-44c2-b31d-832bfa4b9721.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery section -->
+    <div class="section gallery-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="section-heading">
+              <h6>GALLERY</h6>
+              <h2>User Uploads</h2>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div id="gallery-list" class="row"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="upload-art" class="section upload-art">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="section-heading">
+              <h6>UPLOAD</h6>
+              <h2>Upload Your Game Art</h2>
+            </div>
+          </div>
+          <div class="col-lg-8 offset-lg-2">
+            <form id="art-form" class="card p-4">
+              <div class="mb-3">
+                <input id="art-title" class="form-control" placeholder="Art title" />
+              </div>
+              <div class="mb-3">
+                <input id="art-file" type="file" accept="image/*" class="form-control" />
+              </div>
+              <div class="mb-3 text-center">
+                <img id="art-preview" style="max-width:100%; max-height: 300px; display:none;" alt="preview"/>
+              </div>
+              <button type="submit" class="btn btn-primary">Upload Art</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spacer" style="height:60px"></div>
+
+    <footer>
+      <div class="container">
+        <div class="col-lg-12">
+          <p>Copyright Console Crusdaer 2025. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: Luca G</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="assets/js/cart.js"></script>
+    <script>
+      (function () {
+        const UPLOAD_ENABLED = true; // Set to false to disable uploads
+        const AKEY = 'cc_art_v1';
+
+        function loadArt(){ return JSON.parse(localStorage.getItem(AKEY) || '[]'); }
+        function saveArt(a){ localStorage.setItem(AKEY, JSON.stringify(a)); }
+        function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+        function renderGallery() {
+          const list = loadArt().slice().reverse();
+          const container = document.getElementById('gallery-list');
+          container.innerHTML = '';
+          const items = list.filter(it => it.status === 'approved' || typeof it.status === 'undefined');
+          if (!items.length) {
+            container.innerHTML = '<div class="col-12 text-muted">No approved art yet.</div>';
+            return;
+          }
+          items.forEach((it, idx) => {
+            const col = document.createElement('div');
+            col.className = 'col-md-4 col-sm-6 mb-4';
+            col.innerHTML = `
+              <div class="card h-100">
+                <img src="${escapeHtml(it.data)}" class="card-img-top" style="object-fit:cover; height:220px;" alt="${escapeHtml(it.title || '')}">
+                <div class="card-body">
+                  <h5 class="card-title">${escapeHtml(it.title || 'Untitled')}</h5>
+                  <p class="card-text text-muted small">${new Date(it.at || Date.now()).toLocaleString()}</p>
+                </div>
+              </div>`;
+            container.appendChild(col);
+          });
+        }
+
+        // Wire up art upload form
+        const artForm = document.getElementById('art-form');
+        if (artForm) {
+          const fileInput = document.getElementById('art-file');
+          const previewImg = document.getElementById('art-preview');
+
+          fileInput.addEventListener('change', function () {
+            const file = this.files && this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              previewImg.src = e.target.result;
+              previewImg.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+          });
+
+          artForm.addEventListener('submit', function (ev) {
+            ev.preventDefault();
+            if (!UPLOAD_ENABLED) {
+              alert('Uploads are temporarily disabled. Please try again later.');
+              return;
+            }
+            const file = fileInput.files && fileInput.files[0];
+            if (!file) return alert('Please select an image file to upload.');
+            
+            const title = document.getElementById('art-title').value.trim() || 'Untitled';
+            const dataUrl = previewImg.src; // Already loaded by the previewer
+            const artList = loadArt();
+            artList.push({ title, data: dataUrl, at: Date.now(), status: 'pending' });
+            saveArt(artList);
+            alert('Thank you! Your art has been submitted for approval.');
+            artForm.reset();
+            previewImg.style.display = 'none';
+          });
+        }
+
+        // initial render
+        renderGallery();
+        updateCartCount();
+      })();
+    </script>
+
+    <script src="assets/js/custom.js"></script>
+  </body>
+</html>

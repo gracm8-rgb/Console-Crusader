@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Console Crusader - Shopping Cart</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-lugx-gaming.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+
+  </head>
+
+<body>
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="index.html" class="logo">
+                        <img src="assets/images/0d8cb697-2741-44c2-b31d-832bfa4b9721.png" alt="" style="width: 158px;">
+                    </a>
+                    <div class="site-title d-none d-md-block" style="margin-left:12px;">
+                      <h1 style="font-family: 'Poppins', sans-serif; font-weight:800; font-size:28px; color:#ffffff; text-transform:uppercase; letter-spacing:2px; margin:0;">
+                        CONSOLE CRUSADER
+                      </h1>
+                    </div>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                      <li><a href="index.html">Home</a></li>
+                      <li><a href="shop.html">Our Shop</a></li>
+                      <li><a href="contact.html">Contact Us</a></li>
+                      <li><a href="reviews.html">Reviews</a></li>
+                      <li><a href="gallery.html">Gallery</a></li>
+                      <li><a href="cart.html" class="active"><i class="fa fa-shopping-cart"></i> Cart <span id="cart-count-nav" class="badge bg-danger">0</span></a></li>
+                  </ul>   
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+  <div class="page-heading header-text">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h3>Shopping Cart</h3>
+          <span class="breadcrumb"><a href="index.html">Home</a> > <a href="shop.html">Shop</a> > Cart</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div id="cart-container" class="card">
+            <div class="card-body">
+              <h4 class="card-title mb-4">Your Items</h4>
+              <div id="cart-items" class="table-responsive">
+                <!-- Cart items will be injected here by JavaScript -->
+              </div>
+              <div id="cart-summary" class="mt-4 text-end">
+                <!-- Cart summary will be injected here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="col-lg-12">
+        <p>Copyright © 2048 LUGX Gaming Company. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: TemplateMo</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/custom.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const cartContainer = document.getElementById('cart-items');
+      const cartSummary = document.getElementById('cart-summary');
+
+      function renderCart() {
+        const cart = getCart();
+        updateCartCount();
+        
+        if (cart.length === 0) {
+          cartContainer.innerHTML = '<p class="text-muted">Your cart is empty.</p>';
+          cartSummary.innerHTML = '';
+          return;
+        }
+
+        let tableHtml = `<table class="table">
+          <thead>
+            <tr><th>Product</th><th>Price</th><th class="text-center">Quantity</th><th class="text-end">Total</th><th></th></tr>
+          </thead>
+          <tbody>`;
+        
+        let subtotal = 0;
+        cart.forEach((item, index) => {
+          const itemTotal = item.price * item.quantity;
+          subtotal += itemTotal;
+          tableHtml += `
+            <tr>
+              <td>${item.name}</td>
+              <td>£${item.price.toFixed(2)}</td>
+              <td class="text-center">
+                <input type="number" value="${item.quantity}" min="1" class="form-control form-control-sm d-inline-block" style="width: 70px;" data-index="${index}" onchange="updateQuantity(${index}, this.value)">
+              </td>
+              <td class="text-end">£${itemTotal.toFixed(2)}</td>
+              <td class="text-end"><button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})"><i class="fa fa-trash"></i></button></td>
+            </tr>`;
+        });
+
+        tableHtml += '</tbody></table>';
+        cartContainer.innerHTML = tableHtml;
+
+        cartSummary.innerHTML = `
+          <h5>Subtotal: <span class="fw-bold">£${subtotal.toFixed(2)}</span></h5>
+          <button class="btn btn-danger mt-3" id="clear-cart-btn">Clear Cart</button>
+          <a href="checkout.html" class="btn btn-primary mt-3 ms-2">Proceed to Checkout</a>
+        `;
+      }
+
+      window.updateQuantity = function(index, quantity) {
+        updateItemQuantity(index, parseInt(quantity, 10));
+        renderCart();
+      }
+
+      window.removeFromCart = function(index) {
+        removeItemFromCart(index);
+        renderCart();
+      }
+
+      document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'clear-cart-btn') {
+          clearCart();
+          renderCart();
+        }
+      });
+      renderCart();
+    });
+  </script>
+
+  </body>
+</html>

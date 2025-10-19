@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Admin - Console Crusader</title>
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-lugx-gaming.css">
+    <style>
+        body { background-color: #f4f4f4; }
+        .admin-panel { padding-top: 120px; padding-bottom: 60px; }
+    </style>
+</head>
+<body>
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+      <div class="container">
+          <div class="row">
+              <div class="col-12">
+                  <nav class="main-nav">
+                      <a href="index.html" class="logo">
+                          <img src="assets/images/0d8cb697-2741-44c2-b31d-832bfa4b9721.png" alt="" style="width: 158px;">
+                      </a>
+                      <div class="site-title d-none d-md-block" style="margin-left:12px;">
+                        <h1 style="font-family: 'Poppins', sans-serif; font-weight:800; font-size:28px; color:#ffffff; text-transform:uppercase; letter-spacing:2px; margin:0;">
+                          CONSOLE CRUSADER
+                        </h1>
+                      </div>
+                      <ul class="nav">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Our Shop</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="reviews.html">Reviews</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="admin.html" class="active">Admin</a></li>
+                      </ul>   
+                      <a class='menu-trigger'><span>Menu</span></a>
+                  </nav>
+              </div>
+          </div>
+      </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <div class="admin-panel section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h6>Admin Panel</h6>
+                        <h2>Pending Art Submissions</h2>
+                    </div>
+                    <div id="auth-message" class="alert alert-warning">
+                        You must be logged in as an admin to view this page. <a href="index.html">Return to homepage</a>.
+                    </div>
+                    <div id="pending-list-container" style="display:none;">
+                        <div id="pending-list" class="row"></div>
+                        <button id="admin-logout" class="btn btn-outline-secondary mt-3">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const AKEY = 'cc_art_v1';
+        function loadArt() { return JSON.parse(localStorage.getItem(AKEY) || '[]'); }
+        function saveArt(a) { localStorage.setItem(AKEY, JSON.stringify(a)); }
+        function escapeHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+        function isAdmin() { return sessionStorage.getItem('cc_admin') === '1'; }
+
+        function renderPendingList() {
+            const container = document.getElementById('pending-list');
+            if (!container) return;
+            container.innerHTML = '';
+            const all = loadArt();
+            const pending = all.map((it, idx) => ({ ...it, originalIndex: idx })).filter(x => x.status === 'pending');
+            
+            if (!pending.length) {
+                container.innerHTML = '<div class="col-12 text-muted">No pending art submissions.</div>';
+                return;
+            }
+
+            pending.forEach(item => {
+                const col = document.createElement('div');
+                col.className = 'col-md-4 mb-4';
+                col.innerHTML = `
+                    <div class="card h-100">
+                        <img src="${item.data}" class="card-img-top" style="height:200px; object-fit:cover;" alt="${escapeHtml(item.title)}">
+                        <div class="card-body">
+                            <h5 class="card-title">${escapeHtml(item.title)}</h5>
+                            <p class="card-text small text-muted">Uploaded: ${new Date(item.at).toLocaleString()}</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-success me-1" data-action="approve" data-index="${item.originalIndex}">Approve</button>
+                            <button class="btn btn-sm btn-warning me-1" data-action="reject" data-index="${item.originalIndex}">Reject</button>
+                            <button class="btn btn-sm btn-danger" data-action="delete" data-index="${item.originalIndex}">Delete</button>
+                        </div>
+                    </div>`;
+                container.appendChild(col);
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('button[data-action]');
+            if (!btn || !isAdmin()) return;
+
+            const action = btn.dataset.action;
+            const index = parseInt(btn.dataset.index, 10);
+            const artList = loadArt();
+
+            if (artList[index]) {
+                if (action === 'approve' || action === 'reject') {
+                    artList[index].status = action;
+                } else if (action === 'delete') {
+                    artList.splice(index, 1);
+                }
+                saveArt(artList);
+                renderPendingList();
+            }
+        });
+
+        document.getElementById('admin-logout').addEventListener('click', () => {
+            sessionStorage.removeItem('cc_admin');
+            window.location.href = 'index.html';
+        });
+
+        if (isAdmin()) {
+            document.getElementById('auth-message').style.display = 'none';
+            document.getElementById('pending-list-container').style.display = 'block';
+            renderPendingList();
+        }
+    })();
+    </script>
+</body>
+</html>
